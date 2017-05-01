@@ -4,7 +4,7 @@
 	 *	Check login and return value for keep session.
 	 */
 
-	function checkLogin($user, $pass) {
+	function login($user, $pass) {
 		return $user . " - " . $pass;
 	}
 
