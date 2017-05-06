@@ -1,6 +1,6 @@
 <?php
 
-include "../common/config.php";
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -8,23 +8,12 @@ include "../common/config.php";
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title><?php echo $TITLE_WEB;?> - หน้าเปล่า</title>
-    <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-    <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Theme style -->
     <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
@@ -36,24 +25,22 @@ include "../common/config.php";
 <div class="wrapper">
 
     <?php
-    include "header-nav.php";
+    include_once(dirname(__FILE__) . '/header-nav.php');
     ?>
 
     <!-- =============================================== -->
 
     <?php
-    include "sidebar-main.php";
+    include_once(dirname(__FILE__) . '/sidebar-main.php');
     ?>
 
     <!-- =============================================== -->
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                หน้าเปล่า
-                <!-- <small>it all starts here</small> -->
+                รายรับ-รายจ่าย
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-home"></i> </a></li>
@@ -64,10 +51,15 @@ include "../common/config.php";
 
         <!-- Main content -->
         <section class="content">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">รายรับ-รายจ่าย</h3>
+                    <small class="pull-right"><b>วัน-เวลา :</b> 2017-05-02 12:00</small>
+                </div>
+            </div>
+            <div>
 
-            <li>
-
-            </li>
+            </div>
         </section>
         <!-- /.content -->
     </div>
@@ -76,9 +68,8 @@ include "../common/config.php";
     <!-- =============================================== -->
 
     <?php
-    include "footer-main.php";
+    include_once(dirname(__FILE__) . '/footer-main.php');
     ?>
-
     <!-- =============================================== -->
 
 </div>
@@ -86,6 +77,8 @@ include "../common/config.php";
 
 <!-- jQuery 2.2.3 -->
 <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+
+
 <!-- Bootstrap 3.3.6 -->
 <script src="../bootstrap/js/bootstrap.min.js"></script>
 <!-- SlimScroll -->
@@ -95,6 +88,12 @@ include "../common/config.php";
 <!-- AdminLTE App -->
 <script src="../dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
+<script src="../dist/js/demo.js"></script>
+<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="../plugins/fastclick/fastclick.js"></script>
+<script src="../dist/js/app.min.js"></script>
 <script src="../dist/js/demo.js"></script>
 </body>
 </html>
