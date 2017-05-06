@@ -5,11 +5,11 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="<?php echo $HOST_NAME;?>/profile-pic/<?php echo $_SESSION["profilePic"];?>" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>Alexander Pierce</p>
-                <small>พนักงาน</small>
+                <p><?php echo $_SESSION["firstName"]." ".$_SESSION["lasttName"];?></p>
+                <small><?php echo $_SESSION["userRoleName"];?></small>
             </div>
         </div>
 
@@ -46,14 +46,14 @@
             </li>
 
             <li>
-                <a href="#">
+                <a href="">
                     <i class="fa fa-bar-chart"></i>
                     <span>รายงาน</span>
                 </a>
             </li>
 
             <li>
-                <a href="#">
+                <a href="<?php echo $HOST_NAME;?>/pages/logout.php">
                     <i class="fa fa-sign-out"></i>
                     <span>ออกจากระบบ</span>
                 </a>

@@ -1,9 +1,15 @@
 <?php 
-
+    session_start();
     include "../common/config.php";
+    include "../database/function.php";
 
     /* page name */
     $MODULE = "manage-order";
+
+    if($_SESSION["loginStatus"] != 1){
+        header("Location: " . $HOST_NAME . "/pages/login.php");
+    }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -77,186 +83,55 @@
                         บริกรต้องเลือกโต๊ะให้กับลูกค้า โดยตรวจสอบสถานะและที่นั่งตามที่เหมาะสม จากรายชื่อโต๊ะข้างล่าง
                     </div>
 
+                    <?php
+                        $tables = getTables();
+
+                        for ($i = 0; $i < count($tables); $i++) { 
+                            $tableNo        =   $tables[$i]['TableNo'];
+                            $tableSeat      =   $tables[$i]['TableSeat'];
+                            $tableStatus    =   $tables[$i]['TableStatus'];
+
+                            if($i % 4 == 0){
+                    ?>
 
                     <div class="row">
+                    <?php
+                            }
+                    ?>
 
                         <a href="show-manage-order.php" class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="info-box bg-green">
-                                <span class="info-box-icon">1</span>
+                            <div class="info-box <?php echo ($tableStatus == '1')? 'bg-green':'bg-yellow'?>">
+                                <span class="info-box-icon"><?php echo $tableNo;?></span>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">โต๊ะสำหรับ</span>
-                                    <span class="info-box-number">3-4 ท่าน</span>
+                                    <span class="info-box-number"><?php echo $tableSeat;?> ท่าน</span>
                                     <div class="progress">
                                         <div class="progress-bar" style="width: 100%"></div>
                                     </div>
 
                                     <span class="progress-description">
-                                        สถานะ : ว่าง
+                                        สถานะ : <?php echo ($tableStatus == '1')? 'ว่าง':'ไม่ว่าง'?>
                                     </span>
                                 </div>
                                 <!-- /.info-box-content -->
-                              </div>
-                              <!-- /.info-box -->
+                            </div>
+                            <!-- /.info-box -->
                         </a>
                         <!-- /.col -->
+                    <?php       
+                            if($i % 4 == 3){
+                    ?>
 
+                    </div>
 
-                            <div class="col-md-3 col-sm-6 col-xs-12">
-                              <div class="info-box bg-yellow">
-                                <span class="info-box-icon">2</span>
+                    <?php
+                            }
+                        }
 
-                                <div class="info-box-content">
-                                  <span class="info-box-text">โต๊ะสำหรับ</span>
-                                  <span class="info-box-number">1-2 ท่าน</span>
-                                  <div class="progress">
-                                    <div class="progress-bar" style="width: 100%"></div>
-                                  </div>
-                                      <span class="progress-description">
-                                        สถานะ : ไม่ว่าง
-                                      </span>
-                                </div>
-                                <!-- /.info-box-content -->
-                              </div>
-                              <!-- /.info-box -->
-                            </div>
-                            <!-- /.col -->
+                    ?>
 
-                            <div class="col-md-3 col-sm-6 col-xs-12">
-                              <div class="info-box bg-green">
-                                <span class="info-box-icon">3</span>
-
-                                <div class="info-box-content">
-                                  <span class="info-box-text">โต๊ะสำหรับ</span>
-                                  <span class="info-box-number">3-4 ท่าน</span>
-                                  <div class="progress">
-                                    <div class="progress-bar" style="width: 100%"></div>
-                                  </div>
-                                      <span class="progress-description">
-                                        สถานะ : ว่าง
-                                      </span>
-                                </div>
-                                <!-- /.info-box-content -->
-                              </div>
-                              <!-- /.info-box -->
-                            </div>
-                            <!-- /.col -->
-
-
-                            <div class="col-md-3 col-sm-6 col-xs-12">
-                              <div class="info-box bg-green">
-                                <span class="info-box-icon">4</span>
-
-                                <div class="info-box-content">
-                                  <span class="info-box-text">โต๊ะสำหรับ</span>
-                                  <span class="info-box-number">1-2 ท่าน</span>
-                                  <div class="progress">
-                                    <div class="progress-bar" style="width: 100%"></div>
-                                  </div>
-                                      <span class="progress-description">
-                                        สถานะ : ว่าง
-                                      </span>
-                                </div>
-                                <!-- /.info-box-content -->
-                              </div>
-                              <!-- /.info-box -->
-                            </div>
-                            <!-- /.col -->
-
-                          </div>
-
-
-
-
-                    <div class="row">
-                            <div class="col-md-3 col-sm-6 col-xs-12">
-                              <div class="info-box bg-green">
-                                <span class="info-box-icon">5</span>
-
-                                <div class="info-box-content">
-                                  <span class="info-box-text">โต๊ะสำหรับ</span>
-                                  <span class="info-box-number">3-4 ท่าน</span>
-                                  <div class="progress">
-                                    <div class="progress-bar" style="width: 100%"></div>
-                                  </div>
-                                      <span class="progress-description">
-                                        สถานะ : ว่าง
-                                      </span>
-                                </div>
-                                <!-- /.info-box-content -->
-                              </div>
-                              <!-- /.info-box -->
-                            </div>
-                            <!-- /.col -->
-
-
-                            <div class="col-md-3 col-sm-6 col-xs-12">
-                              <div class="info-box bg-green">
-                                <span class="info-box-icon">6</span>
-
-                                <div class="info-box-content">
-                                  <span class="info-box-text">โต๊ะสำหรับ</span>
-                                  <span class="info-box-number">1-2 ท่าน</span>
-                                  <div class="progress">
-                                    <div class="progress-bar" style="width: 100%"></div>
-                                  </div>
-                                      <span class="progress-description">
-                                        สถานะ : ไม่ว่าง
-                                      </span>
-                                </div>
-                                <!-- /.info-box-content -->
-                              </div>
-                              <!-- /.info-box -->
-                            </div>
-                            <!-- /.col -->
-
-                            <div class="col-md-3 col-sm-6 col-xs-12">
-                              <div class="info-box bg-green">
-                                <span class="info-box-icon">7</span>
-
-                                <div class="info-box-content">
-                                  <span class="info-box-text">โต๊ะสำหรับ</span>
-                                  <span class="info-box-number">3-4 ท่าน</span>
-                                  <div class="progress">
-                                    <div class="progress-bar" style="width: 100%"></div>
-                                  </div>
-                                      <span class="progress-description">
-                                        สถานะ : ว่าง
-                                      </span>
-                                </div>
-                                <!-- /.info-box-content -->
-                              </div>
-                              <!-- /.info-box -->
-                            </div>
-                            <!-- /.col -->
-
-
-                            <div class="col-md-3 col-sm-6 col-xs-12">
-                              <div class="info-box bg-green">
-                                <span class="info-box-icon">8</span>
-
-                                <div class="info-box-content">
-                                  <span class="info-box-text">โต๊ะสำหรับ</span>
-                                  <span class="info-box-number">1-2 ท่าน</span>
-                                  <div class="progress">
-                                    <div class="progress-bar" style="width: 100%"></div>
-                                  </div>
-                                      <span class="progress-description">
-                                        สถานะ : ว่าง
-                                      </span>
-                                </div>
-                                <!-- /.info-box-content -->
-                              </div>
-                              <!-- /.info-box -->
-                            </div>
-                            <!-- /.col -->
-
-                          </div>
-
-
-
-
-
+    
                 </section>
                 <!-- /.content -->
             </div>

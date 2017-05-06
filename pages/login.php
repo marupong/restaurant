@@ -1,22 +1,35 @@
 <?php 
-
+    session_start();
     include "../common/config.php";
     include "../database/function.php";
 
-    if (isset($_POST['username']) && isset($_POST['password'])) {      
-        $loginStatus    =   checkLogin($_POST['username'], $_POST['password']);
+    //session_destroy();
 
-        $getUserDetail  =   getUser($_POST['username']);
+    if (isset($_POST['username']) && isset($_POST['password'])) {   
 
-        $fullName       =   $getUserDetail['FullName'];
-        $lastName       =   $getUserDetail['LastName'];
-        $userRoleID     =   $getUserDetail['UserRoleID'];
+        $username       =   $_POST['username'];
+        $password       =   $_POST['password'];
 
-        $getUserRoles   =   getUserRoles($userRoleID);
+        $loginStatus    =   checkLogin($username, $password);
 
-        echo $getUserRoles['UserRoleName'];
+        if ($loginStatus == 1) {
+            $user  =   getUser($username);
+
+            $_SESSION["loginStatus"]    =   1;
+            $_SESSION["firstName"]      =   $user['FirstName'];
+            $_SESSION["lasttName"]      =   $user['LasttName'];
+            $_SESSION["profilePic"]     =   $user['ProfilePic'];
+            $_SESSION["userRoleID"]     =   $user['UserRoleID'];
+
+            $userRole   =   getUserRole($user['UserRoleID']);
+
+            $_SESSION["userRoleName"] =  $userRole['UserRoleName'];
+
+            updateLastLogin($username);
+
+            header("Location: " . $HOST_NAME . "/index.php");
+        }
     }
-
 
 ?>
 <!DOCTYPE html>
@@ -72,7 +85,7 @@
                         <span class="help-block">
                             <?php  
                                 if (isset($loginStatus) && $loginStatus == 0) {
-                                     echo "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง !!!";
+                                     echo "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง !!!";
                                 }
                             ?>   
                         </span>

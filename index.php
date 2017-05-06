@@ -1,10 +1,14 @@
 <?php 
-
+    session_start();
     include "common/config.php";
     include "database/function.php";
 
-    /* page name */
+    /* module name */
     $MODULE = "index";
+
+    if($_SESSION["loginStatus"] != 1){
+        header("Location: " . $HOST_NAME . "/pages/login.php");
+    }
 
 ?>
 <!DOCTYPE html>
