@@ -115,7 +115,7 @@
                                     </td>
                                     <td>
                                         <a href="index.php" type="button" class="btn btn-info btn-xs">
-                                            <i class="fa fa-check-square-o"></i> เลือก
+                                            <i class="fa fa-plus"></i> เลือก
                                         </a> 
                                     </td>
                                 </tr>
@@ -130,7 +130,7 @@
                                     </td>
                                     <td>
                                         <a href="index.php" type="button" class="btn btn-info btn-xs">
-                                            <i class="fa fa-check-square-o"></i> เลือก
+                                            <i class="fa fa-plus"></i> เลือก
                                         </a> 
                                     </td>
                                 </tr>
@@ -145,7 +145,7 @@
                                     </td>
                                     <td>
                                         <a href="index.php" type="button" class="btn btn-info btn-xs">
-                                            <i class="fa fa-check-square-o"></i> เลือก
+                                            <i class="fa fa-plus"></i> เลือก
                                         </a> 
                                     </td>
                                 </tr>

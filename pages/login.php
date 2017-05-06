@@ -1,6 +1,22 @@
 <?php 
 
     include "../common/config.php";
+    include "../database/function.php";
+
+    if (isset($_POST['username']) && isset($_POST['password'])) {      
+        $loginStatus    =   checkLogin($_POST['username'], $_POST['password']);
+
+        $getUserDetail  =   getUser($_POST['username']);
+
+        $fullName       =   $getUserDetail['FullName'];
+        $lastName       =   $getUserDetail['LastName'];
+        $userRoleID     =   $getUserDetail['UserRoleID'];
+
+        $getUserRoles   =   getUserRoles($userRoleID);
+
+        echo $getUserRoles['UserRoleName'];
+    }
+
 
 ?>
 <!DOCTYPE html>
@@ -40,14 +56,26 @@
             <div class="login-box-body">
                 <p class="login-box-msg">เข้าสู่ระบบเพื่อเริ่มการทำงาน</p>
 
-                <form action="../../index2.html" method="post">
+                <form action="login.php" method="post" id="loginForm">
                     <div class="form-group has-feedback">
-                        <input type="email" class="form-control" placeholder="ชื่อผู้ใช้ระบบ">
+                        <input type="username" class="form-control" placeholder="ชื่อผู้ใช้ระบบ" name="username" value="admin">
                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        <span class="help-block"></span>
                     </div>
+
                     <div class="form-group has-feedback">
-                        <input type="password" class="form-control" placeholder="รหัสผ่าน">
+                        <input type="password" class="form-control" placeholder="รหัสผ่าน" name="password" value="admin">
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        <span class="help-block"></span>
+                    </div>
+                    <div class="form-group has-error">
+                        <span class="help-block">
+                            <?php  
+                                if (isset($loginStatus) && $loginStatus == 0) {
+                                     echo "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง !!!";
+                                }
+                            ?>   
+                        </span>
                     </div>
                     <div class="row">
 
@@ -71,11 +99,40 @@
         <!-- iCheck -->
         <script src="../plugins/iCheck/icheck.min.js"></script>
         <script>
-            $(function () {
+            /*$(function () {
                 $('input').iCheck({
                     checkboxClass: 'icheckbox_square-blue',
                     radioClass: 'iradio_square-blue',
                     increaseArea: '20%' // optional
+                });
+            });*/
+            $(document).ready(function(){
+                $("#loginForm" ).submit(function(event) {
+                    var user    =   $("input[name=username]").val();
+                    var pass    =   $("input[name=password]").val();
+                    var status  =   true;
+
+                    if(user == ""){
+                        $("#loginForm > div:eq(0)").addClass("has-error");
+                        $("#loginForm > div:eq(0) > span.help-block").empty().append("กรุณากรอกชื่อผู้ใช้ระบบ");
+                        status = false;
+                    }
+                    else{
+                        $("#loginForm > div:eq(0)").removeClass("has-error");
+                        $("#loginForm > div:eq(0) > span.help-block").empty();   
+                    }
+
+                    if(pass == ""){
+                        $("#loginForm > div:eq(1)").addClass("has-error");
+                        $("#loginForm > div:eq(1) > span.help-block").empty().append("กรุณากรอกชื่อรหัสผ่าน");
+                        status = false;
+                    }
+                    else{
+                        $("#loginForm > div:eq(1)").removeClass("has-error");
+                        $("#loginForm > div:eq(1) > span.help-block").empty();   
+                    }
+
+                    return status;
                 });
             });
         </script>
