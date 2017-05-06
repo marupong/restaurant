@@ -17,8 +17,8 @@
         <ul class="sidebar-menu">
             <li class="header">เมนูหลัก</li>
 
-            <li>
-                <a href="#">
+            <li <?php echo ($MODULE=="manage-order")? "class=\"active\"":"";?>>
+                <a href="<?php echo $HOST_NAME;?>/pages/show-tables.php">
                     <i class="fa fa-check-square-o"></i>
                     <span>การสั่งอาหาร</span>
                 </a>
@@ -49,6 +49,13 @@
                 <a href="#">
                     <i class="fa fa-bar-chart"></i>
                     <span>รายงาน</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa fa-sign-out"></i>
+                    <span>ออกจากระบบ</span>
                 </a>
             </li>
             <!--<li class="treeview active">

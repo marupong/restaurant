@@ -3,6 +3,9 @@
     include "common/config.php";
     include "database/function.php";
 
+    /* page name */
+    $MODULE = "index";
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -34,50 +37,50 @@
 
     <body class="hold-transition skin-blue sidebar-mini">
 
-    <!-- Site wrapper -->
-    <div class="wrapper">
+        <!-- Site wrapper -->
+        <div class="wrapper">
 
-        <?php
-            include "pages/header-nav.php";
-        ?>
+            <?php
+                include "pages/header-nav.php";
+            ?>
 
-        <!-- =============================================== -->
+            <!-- =============================================== -->
 
-        <?php
-            include "pages/sidebar-main.php";
-        ?>
+            <?php
+                include "pages/sidebar-main.php";
+            ?>
 
-        <!-- =============================================== -->
+            <!-- =============================================== -->
 
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <h1>
-                    หน้าแรก
-                    <!-- <small>it all starts here</small> -->
-                </h1>
-                <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-dashboard"></i> หน้าแรก</a></li>
-                    <!-- <li><a href="#">Examples</a></li>
-                    <li class="active">Blank page</li> -->
-                </ol>
-            </section>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        หน้าแรก
+                        <!-- <small>it all starts here</small> -->
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="index.php"><i class="fa fa-dashboard"></i> หน้าแรก</a></li>
+                        <!-- <li><a href="#">Examples</a></li>
+                        <li class="active">Blank page</li> -->
+                    </ol>
+                </section>
 
-            <!-- Main content -->
-            <section class="content">
-                <div class="callout callout-info">
-                    <br />
-                    <h4>ยินดีต้อนรับ!</h4>
+                <!-- Main content -->
+                <section class="content">
+                    <div class="callout callout-info">
+                        <br />
+                        <h4>ยินดีต้อนรับ!</h4>
 
-                    <p>ระบบร้านอาหารอร่อยเสมอ ยินดีต้อนรับผู้ใช้งานเข้าสู่ระบบ ท่านสามารถเลือกเมนูที่ต้องการจากแถบเมนูด้านซ้าย</p>
-                    <br />
-                </div>
+                        <p>ระบบร้านอาหารอร่อยเสมอ ยินดีต้อนรับผู้ใช้งานเข้าสู่ระบบ ท่านสามารถเลือก <b>"เมนูหลัก"</b> ตามที่ต้องการจากแถบเมนูทางด้านซ้าย</p>
+                        <br />
+                    </div>
 
-            </section>
-            <!-- /.content -->
-          </div>
-          <!-- /.content-wrapper -->
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
 
         <!-- =============================================== -->
 
