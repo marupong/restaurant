@@ -10,6 +10,11 @@
         header("Location: " . $HOST_NAME . "/pages/login.php");
     }
 
+    /*
+     * clear seseion menu
+     */
+    unset($_SESSION["Menus"]);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -87,6 +92,7 @@
                         $tables = getTables();
 
                         for ($i = 0; $i < count($tables); $i++) { 
+                            $tableID        =   $tables[$i]['TableID'];
                             $tableNo        =   $tables[$i]['TableNo'];
                             $tableSeat      =   $tables[$i]['TableSeat'];
                             $tableStatus    =   $tables[$i]['TableStatus'];
@@ -99,7 +105,7 @@
                             }
                     ?>
 
-                        <a href="show-manage-order.php" class="col-md-3 col-sm-6 col-xs-12">
+                        <a href="show-manage-order.php?t=<?php echo $tableID;?>" class="col-md-3 col-sm-6 col-xs-12">
                             <div class="info-box <?php echo ($tableStatus == '1')? 'bg-green':'bg-yellow'?>">
                                 <span class="info-box-icon"><?php echo $tableNo;?></span>
 

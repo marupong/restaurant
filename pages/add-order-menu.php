@@ -1,9 +1,22 @@
 <?php 
-
+    session_start();
     include "../common/config.php";
+    include "../database/function.php";
 
     /* page name */
     $MODULE = "manage-order";
+
+    if($_SESSION["loginStatus"] != 1){
+        header("Location: " . $HOST_NAME . "/pages/login.php");
+    }
+
+    $tableID    =   $_GET['t'];
+    $table      =   getTable($tableID);
+    $tableNo    =   $table['TableNo'];
+
+    $categoryID =   (isset($_GET['c']))? $_GET['c']:NULL;
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -63,7 +76,9 @@
                     <ol class="breadcrumb">
                         <li><a href="../index.php"><i class="fa fa-home"></i> หน้าแรก</a></li>
                         <li><a href="show-tables.php">การสั่งอาหาร</a></li>
-                        <li><a href="show-manage-order.php">โต๊ะหมายเลข 1</a></li>
+                        <li>
+                            <a href="show-manage-order.php?t=<?php echo $tableID;?>">โต๊ะหมายเลข <?php echo $tableNo;?></a>
+                        </li>
                         <li class="active">เพิ่มเมนูอาหาร</li>
                     </ol>
                 </section>
@@ -91,12 +106,12 @@
 
                         <div class="box-body">
 
-                            <a href="index.php" type="button" class="btn btn-success">
-                                <i class="fa fa-list"></i> ดูรายการอาหารของลูกค้า
+                            <a href="show-manage-order.php?t=<?php echo $tableID;?>" type="button" class="btn btn-success">
+                                <i class="fa fa-list"></i> กลับไปรายการอาหารของลูกค้า
                             </a>
                             <p></p>
 
-                            <table class="table table-hover table-striped">
+                            <table id="menuList" class="table table-hover table-striped">
                                 <tr>
                                     <th style="width: 10%">ลำดับ</th>
                                     <th style="width: 25%">ชื่อเมนู</th>
@@ -104,52 +119,37 @@
                                     <th style="width: 35%">รายละเอียดเพิ่มเติม</th>
                                     <th style="width: 15%">เครื่องมือ</th>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>ต้มยำรวมมิตร</td>
-                                    <td>
-                                        <input class="form-control" type="text" placeholder="" value="1">
-                                    </td>
-                                    <td>
-                                        <input class="form-control" type="text" placeholder="">
-                                    </td>
-                                    <td>
-                                        <a href="index.php" type="button" class="btn btn-info btn-xs">
-                                            <i class="fa fa-plus"></i> เลือก
-                                        </a> 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>ไข่เจียวหมูสับ</td>
-                                    <td>
-                                        <input class="form-control" type="text" placeholder="" value="1">
-                                    </td>
-                                    <td>
-                                        <input class="form-control" type="text" placeholder="">
-                                    </td>
-                                    <td>
-                                        <a href="index.php" type="button" class="btn btn-info btn-xs">
-                                            <i class="fa fa-plus"></i> เลือก
-                                        </a> 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>ข้าวเปล่า</td>
-                                    <td>
-                                        <input class="form-control" type="text" placeholder="" value="1">
-                                    </td>
-                                    <td>
-                                        <input class="form-control" type="text" placeholder="">
-                                    </td>
-                                    <td>
-                                        <a href="index.php" type="button" class="btn btn-info btn-xs">
-                                            <i class="fa fa-plus"></i> เลือก
-                                        </a> 
-                                    </td>
-                                </tr>
 
+                            <?php
+
+                                $menus      =   getMenus($categoryID);
+                                for ($i=0; $i < count($menus); $i++) { 
+                                    $menuNo     =   $i + 1;
+                                    $menuID     =   $menus[$i]['MenuID'];
+                                    $menuName   =   $menus[$i]['MenuName'];
+
+                            ?>
+                                <tr id="<?php echo $menuID;?>">
+                                    <td><?php echo $menuNo;?></td>
+                                    <td><?php echo $menuName;?></td>
+                                    <td>
+                                        <input class="form-control" type="text" placeholder="" value="1">
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="text" placeholder="">
+                                    </td>
+                                    <td>
+                                        <!-- <a href="<?php //echo $HOST_NAME;?>/pages/select-menu.php?" type="button" class="btn btn-info btn-xs"> -->
+                                        <button type="button" class="btn btn-info btn-xs" value="<?php echo $menuID;?>"> 
+                                            <i class="fa fa-plus"></i> เลือก
+                                        </button> 
+                                    </td>
+                                </tr>                           
+                            <?php
+                                }
+
+                            ?>
+                                
                             </table>
 
                         </div>
@@ -218,6 +218,29 @@
         <!-- AdminLTE for demo purposes -->
         <script src="../dist/js/demo.js"></script>
 
+        <script>
+             $(document).ready(function(){
+                $("#menuList").find("tr > td > button").click(function(){
+
+                    var c = $(this).attr('class');
+
+                    if(c.indexOf("disabled") == -1){
+                        var menuID      =   $(this).val();
+                        var menuQty     =   $("#" + menuID).find("td:eq(2) > input").val();
+                        var menuNote    =   $("#" + menuID).find("td:eq(3) > input").val();
+
+                        var param   =    "";
+                        param   +=   "id=" + menuID;
+                        param   +=  "&qty=" +  menuQty 
+                        param   +=  "&note=" +  menuNote 
+                        param   +=  "&t=" +  <?php echo $tableID;?>
+                        
+                        window.location.href = "<?php echo $HOST_NAME;?>/pages/select-order-menu.php?" + param;
+                    }
+
+                });
+             });
+        </script>
 
     </body>
 </html>

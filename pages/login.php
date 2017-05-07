@@ -3,7 +3,6 @@
     include "../common/config.php";
     include "../database/function.php";
 
-    //session_destroy();
 
     if (isset($_POST['username']) && isset($_POST['password'])) {   
 
