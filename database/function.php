@@ -101,4 +101,44 @@
 		return $result;		
 	}
 
+	function addOrder($tableID, $OrderDateTime, $Username, $OrderTotalPrice, $OrderStatus) {
+		global $objConnect;
+
+	   //$strSQL     =   "UPDATE Users SET LastLogin = '".date('Y-m-d H:i:s')."' WHERE username = '".$username."' ";
+
+		$strSQL		=	"insert into Orders (tableID, OrderDateTime, Username, OrderTotalPrice, OrderStatus) ";
+		$strSQL     .=	"values (".$tableID.", '".$OrderDateTime."', '".$Username."', ".$OrderTotalPrice.", ".$OrderStatus.")";
+	    $query      =   mysqli_query($objConnect, $strSQL);
+	    $result     =   mysqli_affected_rows($objConnect);
+
+	    return $result;		
+	}
+
+	function checkHasOrder($tableID, $status){
+		global $objConnect;
+		
+        $strSQL     = 	"SELECT * FROM Orders ";
+        $strSQL     .= 	"WHERE tableID = ".$tableID." ";
+        $strSQL     .= 	"AND OrderStatus = ".$status." ";
+        $query   	= 	mysqli_query($objConnect, $strSQL);
+
+        $result = 	mysqli_num_rows($query);
+
+		return $result;		
+	}
+
+	function getCategories(){
+		global $objConnect;
+		
+		$strSQL     = 	"SELECT * FROM Categories ";
+        $strSQL     .= 	"ORDER BY CategoryID ";
+        $query   	= 	mysqli_query($objConnect, $strSQL);
+
+        while($arr	= mysqli_fetch_array($query)){
+        	$result[] = $arr;
+        }
+        
+		return $result;		
+	}
+
 ?>

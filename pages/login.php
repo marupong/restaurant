@@ -15,6 +15,7 @@
             $user  =   getUser($username);
 
             $_SESSION["loginStatus"]    =   1;
+            $_SESSION["username"]       =   $username;
             $_SESSION["firstName"]      =   $user['FirstName'];
             $_SESSION["lasttName"]      =   $user['LasttName'];
             $_SESSION["profilePic"]     =   $user['ProfilePic'];

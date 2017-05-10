@@ -3,6 +3,7 @@
 	//session_destroy();
 
 	unset($_SESSION["loginStatus"]);
+	unset($_SESSION["username"]);
 	unset($_SESSION["firstName"]);
 	unset($_SESSION["lasttName"]);
 	unset($_SESSION["profilePic"]);

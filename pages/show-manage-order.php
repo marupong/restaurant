@@ -85,7 +85,7 @@
                     <div class="box">
                         <div class="box-header with-border">
                             <h3 class="box-title">รายการอาหารของลูกค้า</h3>
-                            <small class="pull-right"><b>วัน-เวลา :</b> 2017-05-02 12:00</small>
+                            <!-- <small class="pull-right"><b>วัน-เวลา :</b> 2017-05-02 12:00</small> -->
                             <!-- <div class="box-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
                                     <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
@@ -205,8 +205,8 @@
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer clearfix " style="text-align: center;">
-                            <button type="button" class="btn btn-default btn-lg"><i class="fa fa-times"></i> ยกเลิก</button>
-                            <button type="button" class="btn btn-primary btn-lg"><i class="fa fa-check"></i> ยืนยัน</button>
+                            <a href="<?php echo $HOST_NAME;?>/pages/show-tables.php" type="button" class="btn btn-default btn-lg"><i class="fa fa-times"></i> ยกเลิก</a>
+                            <a href="<?php echo $HOST_NAME;?>/pages/confirm-order-fn.php?t=<?php echo $tableID;?>" type="button" class="btn btn-primary btn-lg"><i class="fa fa-check"></i> ยืนยันเมนู</a>
                             <!-- <ul class="pagination no-margin pull-right">
                                 <li class="paginate_button previous disabled">
                                     <a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a>

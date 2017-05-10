@@ -16,7 +16,6 @@
 
     $categoryID =   (isset($_GET['c']))? $_GET['c']:NULL;
 
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -34,6 +33,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
         <!-- DataTables -->
         <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
+        <!-- iCheck for checkboxes and radio inputs -->
+        <link rel="stylesheet" href="../plugins/iCheck/all.css">
         <!-- Theme style -->
         <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
         <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -110,6 +111,30 @@
                                 <i class="fa fa-list"></i> กลับไปรายการอาหารของลูกค้า
                             </a>
                             <p></p>
+                            <!-- radio -->
+                            
+
+                            <div class="form-group">
+                        <?php
+                            $categories = getCategories();
+
+                            foreach ($categories as $value) {
+                                $catID      =   $value['CategoryID'];
+                                $catName    =   $value['CategoryName'];
+
+                                $disabled   =   ($categoryID==$catID)? 'disabled':'';
+
+
+                        ?>
+                                <a href="<?php echo $HOST_NAME;?>/pages/add-order-menu.php?t=<?php echo $tableID;?>&c=<?php echo $catID;?>" class="btn btn-default <?php echo $disabled;?>">
+                                    <?php echo $catName;?>
+                                </a>
+                        <?php
+                            }
+                        ?>
+
+                            </div>
+                           
 
                             <table id="menuList" class="table table-hover table-striped">
                                 <tr>
@@ -217,6 +242,12 @@
         <script src="../dist/js/app.min.js"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="../dist/js/demo.js"></script>
+        <!-- iCheck 1.0.1 -->
+        <script src="../plugins/iCheck/icheck.min.js"></script>
+        <!-- InputMask -->
+        <script src="../plugins/input-mask/jquery.inputmask.js"></script>
+        <script src="../plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+        <script src="../plugins/input-mask/jquery.inputmask.extensions.js"></script>
 
         <script>
              $(document).ready(function(){
@@ -239,6 +270,13 @@
                     }
 
                 });
+
+                //Flat red color scheme for iCheck
+                $('input[type="radio"].flat-red').iCheck({
+                    checkboxClass: 'icheckbox_flat-red',
+                    radioClass: 'iradio_flat-red'
+                });
+
              });
         </script>
 
