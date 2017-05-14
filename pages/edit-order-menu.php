@@ -121,17 +121,26 @@
 
                             <?php
 
-                                if ($format == 1){
-                                    $menu   =   getMenu($menuID);
+                                if ($format == 1){ //menuID is OrderDetailID
+                                    $orderDetail   =   getOrderDetail($menuID);
+
+                                    $menuID         =   $orderDetail['MenuID'];
+                                    $getMenu        =   getMenu($menuID);
+
+                                    $menuID         =   $orderDetail['OrderDetailID'];
+                                    $menuName       =   $getMenu['MenuName'];
+                                    $menuQty        =   $orderDetail['Qty'];
+                                    $menuNote       =   $orderDetail['MenuNote'];
                                 }
                                 else{
                                     /* menuID in session is key in array */
-                                    $menu   =   $_SESSION["Menus"][$menuID];
+                                    $menu       =   $_SESSION["Menus"][$menuID];
+
+                                    $menuName   =   $menu['MenuName'];
+                                    $menuQty    =   $menu['MenuQty'];
+                                    $menuNote   =   $menu['MenuNote'];
                                 }
 
-                                $menuName   =   $menu['MenuName'];
-                                $menuQty    =   $menu['MenuQty'];
-                                $menuNote   =   $menu['MenuNote'];
 
                             ?>
                                 <tr>

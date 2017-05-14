@@ -14,6 +14,23 @@
     $table      =   getTable($tableID);
     $tableNo    =   $table['TableNo'];
 
+    $status    =   $_GET['s'];
+
+
+
+    if ($status == 'e') {
+        echo "<script>alert('ยังไม่มีรายการ')</script>";
+        header("Location: " . $HOST_NAME . "/pages/show-manage-order.php?t=" . $tableID );
+    }
+    else if($status == 'u' || $status == 'i'){
+        echo "<script>alert('ทำรายการสำเร็จ')</script>";
+        header("Location: " . $HOST_NAME . "/pages/show-manage-order.php?t=" . $tableID);
+    }
+    else if($status == 'nu' || $status == 'ni'){
+        echo "<script>alert('ทำรายการไม่สำเร็จ !!!')</script>";
+        header("Location: " . $HOST_NAME . "/pages/show-manage-order.php?t=" . $tableID);
+    }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -110,31 +127,73 @@
                                 <tr>
                                     <th style="width: 10%">ลำดับ</th>
                                     <th style="width: 25%">ชื่อเมนู</th>
-                                    <th style="width: 15%">จำนวน</th>
-                                    <th style="width: 35%">รายละเอียดเพิ่มเติม</th>
+                                    <th style="width: 10%">ราคา</th>
+                                    <th style="width: 10%">จำนวน</th>
+                                    <th style="width: 30%">รายละเอียดเพิ่มเติม</th>
                                     <th style="width: 15%">เครื่องมือ</th>
                                 </tr>
                             <?php
 
-                                $MenuNo = 1;
+                                $menuNo = 1;
 
-                                for ($i=0; $i < 10; $i++) { 
-                                    
+                                $orderID        =   getOrderID($tableID, 1);
+
+                                if (isset($orderID)){
+                                    $OrderDetails   =   getOrderDetails($orderID);
+                                }
+                                else{
+                                    $OrderDetails   =   array();
+                                }
+
+
+                                 if (count($OrderDetails) > 0) {
+                                    foreach ($OrderDetails as $OrderDetail) {
+                                        $orderDetailID  =   $OrderDetail['OrderDetailID'];
+                                        $menuID     =   $OrderDetail['MenuID'];
+
+                                        $getMenu    =   getMenu($menuID);
+                                        $menuName   =   $getMenu['MenuName'];
+
+                                        $menuQty    =   $OrderDetail['Qty'];
+                                        $menuNote   =   $OrderDetail['MenuNote']; 
+                                        $menuPrice  =   $OrderDetail['PricePerMenu'];  
+                            ?>
+                                <tr>
+                                    <td><?php echo $menuNo;?></td>
+                                    <td><?php echo $menuName;?></td>
+                                    <td><?php echo $menuPrice;?></td>
+                                    <td><?php echo $menuQty;?></td>
+                                    <td><?php echo $menuNote;?></td>
+                                    <td>
+                                        <a href="<?php echo $HOST_NAME;?>/pages/edit-order-menu.php?t=<?php echo $tableNo;?>&id=<?php echo $orderDetailID;?>&f=1" type="button" class="btn btn-info btn-xs">
+                                            <i class="fa fa-edit"></i> แก้ไข
+                                        </a> 
+                                        <a href="<?php echo $HOST_NAME;?>/pages/delete-order-menu.php?t=<?php echo $tableNo;?>&i=<?php echo $orderDetailID;?>&f=1" type="button" class="btn btn-danger btn-xs">
+                                            <i class="fa fa-trash"></i> ยกเลิก
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php   
+                                        $menuNo++; 
+                                        
+                                    }
                                 }
 
                                 if (count($_SESSION["Menus"]) > 0) {
                                     foreach ($_SESSION["Menus"] as $key => $menu) {
                                         $menuID     =   $menu['menuID'];
-                                        $MenuName   =   $menu['MenuName'];
-                                        $MenuQty    =   $menu['MenuQty'];
-                                        $MenuNote   =   $menu['MenuNote'];
+                                        $menuName   =   $menu['MenuName'];
+                                        $menuQty    =   $menu['MenuQty'];
+                                        $menuNote   =   $menu['MenuNote'];
+                                        $menuPrice  =   $menu['MenuPrice'];
                                 
                             ?>
                                 <tr>
-                                    <td><?php echo $MenuNo;?></td>
-                                    <td><?php echo $MenuName;?></td>
-                                    <td><?php echo $MenuQty;?></td>
-                                    <td><?php echo $MenuNote;?></td>
+                                    <td><?php echo $menuNo;?></td>
+                                    <td><?php echo $menuName;?></td>
+                                    <td><?php echo $menuPrice;?></td>
+                                    <td><?php echo $menuQty;?></td>
+                                    <td><?php echo $menuNote;?></td>
                                     <td>
                                         <a href="<?php echo $HOST_NAME;?>/pages/edit-order-menu.php?t=<?php echo $tableNo;?>&id=<?php echo $key;?>&f=2" type="button" class="btn btn-info btn-xs">
                                             <i class="fa fa-edit"></i> แก้ไข
@@ -145,93 +204,28 @@
                                     </td>
                                 </tr>
                             <?php   
-                                        $MenuNo++;     
+                                        $menuNo++;     
                                     }
                                 }
 
-                                if (count($_SESSION["Menus"]) == 0) {
+                                if (count($_SESSION["Menus"]) == 0 && count($OrderDetails) == 0) {
                             ?>
                                 <tr>
-                                    <td style="text-align: center;" colspan="5">ยังไม่มีรายการ</td>
+                                    <td style="text-align: center;" colspan="6">ยังไม่มีรายการ</td>
                                 </tr>
                             <?php
                                 }
                             ?>
-                                <!-- <tr>
-                                    <td>1</td>
-                                    <td>ต้มยำรวมมิตร</td>
-                                    <td>1</td>
-                                    <td>น้ำข้น, ไม่ใส่หมู</td>
-                                    <td>
-                                        <a href="index.php" type="button" class="btn btn-info btn-xs">
-                                            <i class="fa fa-edit"></i> แก้ไข
-                                        </a> 
-                                        <a href="index.php" type="button" class="btn btn-danger btn-xs">
-                                            <i class="fa fa-trash"></i> ยกเลิก
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>ไข่เจียวหมูสับ</td>
-                                    <td>1</td>
-                                    <td>-</td>
-                                    <td>
-                                        <a href="index.php" type="button" class="btn btn-info btn-xs">
-                                            <i class="fa fa-edit"></i> แก้ไข
-                                        </a> 
-                                        <a href="index.php" type="button" class="btn btn-danger btn-xs">
-                                            <i class="fa fa-trash"></i> ยกเลิก
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>ข้าวเปล่า</td>
-                                    <td>2</td>
-                                    <td>-</td>
-                                    <td>
-                                        <a href="index.php" type="button" class="btn btn-info btn-xs">
-                                            <i class="fa fa-edit"></i> แก้ไข
-                                        </a> 
-                                        <a href="index.php" type="button" class="btn btn-danger btn-xs">
-                                            <i class="fa fa-trash"></i> ยกเลิก
-                                        </a>
-                                    </td>
-                                </tr> -->
+
 
                             </table>
 
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer clearfix " style="text-align: center;">
-                            <a href="<?php echo $HOST_NAME;?>/pages/show-tables.php" type="button" class="btn btn-default btn-lg"><i class="fa fa-times"></i> ยกเลิก</a>
-                            <a href="<?php echo $HOST_NAME;?>/pages/confirm-order-fn.php?t=<?php echo $tableID;?>" type="button" class="btn btn-primary btn-lg"><i class="fa fa-check"></i> ยืนยันเมนู</a>
-                            <!-- <ul class="pagination no-margin pull-right">
-                                <li class="paginate_button previous disabled">
-                                    <a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a>
-                                </li>
-                                <li class="paginate_button active">
-                                    <a href="#" data-dt-idx="1" tabindex="0">1</a>
-                                </li>
-                                <li class="paginate_button ">
-                                    <a href="#" data-dt-idx="2" tabindex="0">2</a>
-                                </li>   
-                                <li class="paginate_button ">
-                                    <a href="#" data-dt-idx="3" tabindex="0">3</a>
-                                </li><li class="paginate_button ">
-                                    <a href="#" data-dt-idx="4" tabindex="0">4</a>
-                                </li>
-                                <li class="paginate_button ">
-                                    <a href="#" data-dt-idx="5" tabindex="0">5</a>
-                                </li>
-                                <li class="paginate_button ">
-                                    <a href="#" data-dt-idx="6" tabindex="0">6</a>
-                                </li>
-                                <li class="paginate_button next" id="example2_next">
-                                    <a href="#" data-dt-idx="7" tabindex="0">Next</a>
-                                </li>
-                            </ul> -->
+                            <a href="<?php echo $HOST_NAME;?>/pages/cancel-order-menu.php?t=<?php echo $tableID;?>&i=<?php echo $orderID;?>" type="button" class="btn btn-default btn-lg"><i class="fa fa-times"></i> ยกเลิก</a>
+                            <a href="<?php echo $HOST_NAME;?>/pages/confirm-order-fn.php?t=<?php echo $tableID;?>" id="confirm" type="button" class="btn btn-primary btn-lg"><i class="fa fa-check"></i> ยืนยันเมนู</a>
+
                         </div>
 
                     </div>

@@ -106,7 +106,7 @@
                     ?>
 
                         <a href="show-manage-order.php?t=<?php echo $tableID;?>" class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="info-box <?php echo ($tableStatus == '1')? 'bg-green':'bg-yellow'?>">
+                            <div class="info-box <?php echo ($tableStatus == '0')? 'bg-green':'bg-yellow'?>">
                                 <span class="info-box-icon"><?php echo $tableNo;?></span>
 
                                 <div class="info-box-content">
@@ -117,7 +117,7 @@
                                     </div>
 
                                     <span class="progress-description">
-                                        สถานะ : <?php echo ($tableStatus == '1')? 'ว่าง':'ไม่ว่าง'?>
+                                        สถานะ : <?php echo ($tableStatus == '0')? 'ว่าง':'ไม่ว่าง'?>
                                     </span>
                                 </div>
                                 <!-- /.info-box-content -->

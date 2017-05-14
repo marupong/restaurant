@@ -15,22 +15,31 @@
     $format     =   $_GET['f'];
 
 
-    if ($format == 1){
-
+    if ($format == 1){ //menuID is OrderDetailID
+        updateOrderDetail($menuID, $menuQty, $menuNote);
     }
     else{
     	$menu 		= 	$_SESSION["Menus"][$menuID];
+
+        $key        =   $menuID;
+
+        $menuID     =   $menu['menuID'];
     	$menuName  	=   $menu['MenuName'];
+        $menuPrice  =   $menu['MenuPrice'];
+
+
+        $arrayMenu  =   array(
+                            'menuID' => $menuID
+                            ,'MenuName' => $menuName 
+                            ,'MenuQty' => $menuQty
+                            ,'MenuNote' => $menuNote 
+                            ,'MenuPrice' => $menuPrice
+                        );
+
+
+        $_SESSION["Menus"][$key] = $arrayMenu;
+
     }
-
-    $arrayMenu 	= 	array(
-	    				'menuID' => $menuID
-	                    ,'MenuName' => $menuName 
-	                    ,'MenuQty' => $menuQty
-	                    ,'MenuNote' => $menuNote 
-                	);
-
-    $_SESSION["Menus"][$menuID] = $arrayMenu;
 
     header("Location: " . $HOST_NAME . "/pages/show-manage-order.php?t=" . $tableID);
 ?>

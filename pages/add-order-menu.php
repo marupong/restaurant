@@ -140,9 +140,10 @@
                                 <tr>
                                     <th style="width: 10%">ลำดับ</th>
                                     <th style="width: 25%">ชื่อเมนู</th>
-                                    <th style="width: 15%">จำนวน</th>
-                                    <th style="width: 35%">รายละเอียดเพิ่มเติม</th>
-                                    <th style="width: 15%">เครื่องมือ</th>
+                                    <th style="width: 15%">ราคา</th>
+                                    <th style="width: 10%">จำนวน</th>
+                                    <th style="width: 30%">รายละเอียดเพิ่มเติม</th>
+                                    <th style="width: 10%">เครื่องมือ</th>
                                 </tr>
 
                             <?php
@@ -152,11 +153,13 @@
                                     $menuNo     =   $i + 1;
                                     $menuID     =   $menus[$i]['MenuID'];
                                     $menuName   =   $menus[$i]['MenuName'];
+                                    $menuPrice  =   $menus[$i]['MenuPrice'];
 
                             ?>
                                 <tr id="<?php echo $menuID;?>">
                                     <td><?php echo $menuNo;?></td>
                                     <td><?php echo $menuName;?></td>
+                                    <td><?php echo $menuPrice;?></td>
                                     <td>
                                         <input class="form-control" type="text" placeholder="" value="1">
                                     </td>
@@ -165,6 +168,7 @@
                                     </td>
                                     <td>
                                         <!-- <a href="<?php //echo $HOST_NAME;?>/pages/select-menu.php?" type="button" class="btn btn-info btn-xs"> -->
+                                        <input class="form-control" type="hidden" placeholder="" value="<?php echo $menuPrice;?>">
                                         <button type="button" class="btn btn-info btn-xs" value="<?php echo $menuID;?>"> 
                                             <i class="fa fa-plus"></i> เลือก
                                         </button> 
@@ -257,13 +261,15 @@
 
                     if(c.indexOf("disabled") == -1){
                         var menuID      =   $(this).val();
-                        var menuQty     =   $("#" + menuID).find("td:eq(2) > input").val();
-                        var menuNote    =   $("#" + menuID).find("td:eq(3) > input").val();
+                        var menuQty     =   $("#" + menuID).find("td:eq(3) > input").val();
+                        var menuNote    =   $("#" + menuID).find("td:eq(4) > input").val();
+                        var menuPrice   =   $("#" + menuID).find("td:eq(5) > input").val();
 
                         var param   =    "";
                         param   +=   "id=" + menuID;
                         param   +=  "&qty=" +  menuQty 
                         param   +=  "&note=" +  menuNote 
+                        param   +=  "&price=" + menuPrice
                         param   +=  "&t=" +  <?php echo $tableID;?>
                         
                         window.location.href = "<?php echo $HOST_NAME;?>/pages/select-order-menu.php?" + param;

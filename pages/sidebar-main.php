@@ -31,8 +31,8 @@
                 </a>
             </li>
 
-            <li>
-                <a href="#">
+            <li <?php echo ($MODULE=="manage-payment")? "class=\"active\"":"";?>>
+                <a href="<?php echo $HOST_NAME;?>/pages/show-manage-payment.php">
                     <i class="fa fa-money"></i>
                     <span>การชำระเงิน</span>
                 </a>

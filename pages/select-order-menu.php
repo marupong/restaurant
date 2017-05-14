@@ -7,6 +7,7 @@
     $menuID		=	$_GET['id'];
     $menuQty 	=	$_GET['qty'];
     $menuNote 	=	$_GET['note'];
+    $menuPrice   =   $_GET['price'];
 
     $menu 		= 	getMenu($menuID);
 
@@ -19,9 +20,11 @@
                     ,'MenuName' => $menuName 
                     ,'MenuQty' => $menuQty
                     ,'MenuNote' => $menuNote 
+                    ,'MenuPrice' => $menuPrice
                 );
 
     $_SESSION["Menus"][] = $arrayMenu;
+
 	
 	header("Location: " . $HOST_NAME . "/pages/show-manage-order.php?t=" . $tableID);
 ?>

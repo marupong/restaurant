@@ -11,10 +11,10 @@
      */
     $format		=	$_GET['f'];
 
-    if ($format == 1){
-
+    if ($format == 1){ // index is OrderDetailID
+        deleteOrderDetail($index);
     }
-    else{
+    else {
     	unset($_SESSION["Menus"][$index]);
     }
 
