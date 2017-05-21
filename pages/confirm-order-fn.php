@@ -38,6 +38,7 @@
 
 
 	if (count($_SESSION["Menus"]) > 0) {
+	
  		foreach ($_SESSION["Menus"] as $key => $menu) {
 			$menuID     =   $menu['menuID'];
 			//$menuName   =   $menu['MenuName'];

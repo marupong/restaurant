@@ -172,9 +172,9 @@
                     <div class="row no-print">
                         <div class="col-xs-12">
                             <a href="<?php echo $HOST_NAME;?>/pages/show-invoice-print.php" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-                            <!-- <button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment
+                            <button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> ชำระเงิน
                           </button>
-                            <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
+                            <!--<button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
                             <i class="fa fa-download"></i> Generate PDF
                           </button> -->
                         </div>
